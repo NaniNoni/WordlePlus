@@ -20,6 +20,12 @@ body {
 .box .line-1 {
   background-color: green;
 }
+.box .line-3 {
+  background-color: green;
+}
+.box .line-5 {
+  background-color: green;
+}
 
 .wrapper {
   width: 600px;

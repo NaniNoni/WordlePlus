@@ -1,0 +1,31 @@
+body {
+  margin: 40px;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgrey;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 150%;
+}
+.box .letter-holder {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+.box .line-1 {
+  background-color: green;
+}
+
+.wrapper {
+  width: 600px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(5, 100px);
+  grid-template-rows: repeat(5, 100px);
+  grid-auto-flow: row;
+}/*# sourceMappingURL=style.css.map */

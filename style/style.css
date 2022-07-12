@@ -1,8 +1,10 @@
 body {
   margin: 40px;
+  display: flex;
+  justify-content: center;
 }
 
-.box {
+.board {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,27 +13,46 @@ body {
   border-radius: 5px;
   font-size: 150%;
 }
-.box .letter-holder {
+.board .letter-holder {
   height: 100%;
   width: 100%;
   background-color: transparent;
   border: none;
+  text-align: center;
+  font-size: 330%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
 }
-.box .line-1 {
+.board .line-1 {
   background-color: green;
 }
-.box .line-3 {
+.board .line-3 {
   background-color: green;
 }
-.box .line-5 {
+.board .line-5 {
   background-color: green;
 }
 
-.wrapper {
+.board-wrapper {
   width: 600px;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(5, 100px);
   grid-template-rows: repeat(5, 100px);
+  grid-auto-flow: row;
+  margin: 7%;
+}
+
+.keyboard-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.keyboard-wrapper .keyboard-button {
+  text-align: center;
+  size: 100%;
+}
+
+.wordle-game {
+  display: grid;
   grid-auto-flow: row;
 }/*# sourceMappingURL=style.css.map */

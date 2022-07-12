@@ -7,19 +7,29 @@ const line_3 = document.getElementsByClassName("line-3");
 const line_4 = document.getElementsByClassName("line-4");
 const line_5 = document.getElementsByClassName("line-5");
 
-for (let i = 0; i < CheckAllSquares().length; i ++) {
-    console.log(CheckAllSquares()[i]);
+
+const lines = {
+    one: line_1,
+    two: line_2,
+    three: line_3,
+    four: line_4,
+    five: line_5
 }
 
+console.log(CheckLine(lines.one));
 
+function CheckLine(line) : string {
+    let letters: string[] = new Array();
 
+    letters[0] = (<HTMLInputElement>line[0]).value;
+    letters[1] = (<HTMLInputElement>line[1]).value;
+    letters[2] = (<HTMLInputElement>line[2]).value;
+    letters[3] = (<HTMLInputElement>line[3]).value;
+    letters[4] = (<HTMLInputElement>line[4]).value;
 
-
-
-
-
-
-
+    const lettersAsString = letters.join("");
+    return lettersAsString;
+}
 
 function CheckAllSquares (): string[] {
     // Setting all of the squares

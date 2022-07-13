@@ -55,9 +55,24 @@ body {
     display: flex;
     justify-content: center;
 
-    .keyboard-button {
-        text-align: center;
-        size: 100%;
+    .keyboard-grid {
+        display: grid;
+        grid-auto-flow: row;
+
+        .key-line {
+            display: flex;
+            justify-content: center;
+        }
+
+        .keyboard-button {
+            text-align: center;
+
+            border: none;
+            border-radius: 2px;
+
+            height: 100px;
+            width: 50px;
+        }
     }
 }
 

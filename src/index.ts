@@ -1,18 +1,13 @@
 let word = "ptaki"
 let wordAsArray = word.split("");
 
-const line_1 = document.getElementsByClassName("line-1");
-const line_2 = document.getElementsByClassName("line-2");
-const line_3 = document.getElementsByClassName("line-3");
-const line_4 = document.getElementsByClassName("line-4");
-const line_5 = document.getElementsByClassName("line-5");
-
 const lines = {
-    one: line_1,
-    two: line_2,
-    three: line_3,
-    four: line_4,
-    five: line_5
+    one: document.getElementsByClassName("line-1"),
+    two: document.getElementsByClassName("line-2"),
+    three: document.getElementsByClassName("line-3"),
+    four: document.getElementsByClassName("line-4"),
+    five: document.getElementsByClassName("line-5"),
+    six: document.getElementsByClassName("line-6")
 };
 
 
@@ -20,31 +15,45 @@ const keyboard_buttons = document.getElementsByClassName("keyboard-button");
 
 const current = {
     line: lines.one,
-    box: <HTMLInputElement>this.line[0]
+    box: () => <HTMLInputElement>current.line[0]
 };
 
-let a_btn = <HTMLButtonElement>keyboard_buttons[0];
+const q_btn = <HTMLButtonElement>keyboard_buttons[0];
+const w_btn = <HTMLButtonElement>keyboard_buttons[1];
+const e_btn = <HTMLButtonElement>keyboard_buttons[2];
+const r_btn = <HTMLButtonElement>keyboard_buttons[3];
+const t_btn = <HTMLButtonElement>keyboard_buttons[4];
+const y_btn = <HTMLButtonElement>keyboard_buttons[5];
 
-
+AddEventListeners();
 
 
 function AddEventListeners () {
-    //a_btn.addEventListener("click", AddLetter);
+    q_btn.onclick = () => {
+        alert("Q");
+    }
+    w_btn.onclick = () => {
+        alert("W");
+    }
+    e_btn.onclick = () => {
+        alert("E");
+    }
+    r_btn.onclick = () => {
+        alert("R");
+    }
+    t_btn.onclick = () => {
+        alert("T");
+    }
+    y_btn.onclick = () => {
+        alert("Y");
+    }
 }
 function AddLetter(letter: string) {
-    current.box.value = letter;
+    current.box().value = letter;
 }
 
-
-
-
-
-
-
-
-
-
-CompareWords(CheckLine(lines.one));
+// An example of a use case:
+// CompareWords(CheckLine(current.line));
 
 function CheckLine(line) : string[] {
     let letters: string[] = [];
@@ -76,6 +85,14 @@ function Win () {
     alert("YOU WON");
 }
 
+
+
+
+
+
+
+
+/*
 function CheckAllSquares (): string[] {
     // Setting all of the squares
     let squares: string[] = [];
@@ -111,3 +128,4 @@ function CheckAllSquares (): string[] {
 
     return squares;
 }
+*/

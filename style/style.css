@@ -47,9 +47,20 @@ body {
   display: flex;
   justify-content: center;
 }
-.keyboard-wrapper .keyboard-button {
+.keyboard-wrapper .keyboard-grid {
+  display: grid;
+  grid-auto-flow: row;
+}
+.keyboard-wrapper .keyboard-grid .key-line {
+  display: flex;
+  justify-content: center;
+}
+.keyboard-wrapper .keyboard-grid .keyboard-button {
   text-align: center;
-  size: 100%;
+  border: none;
+  border-radius: 2px;
+  height: 100px;
+  width: 50px;
 }
 
 .wordle-game {

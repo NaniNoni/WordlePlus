@@ -19,10 +19,14 @@ var e_btn = keyboard_buttons[2];
 var r_btn = keyboard_buttons[3];
 var t_btn = keyboard_buttons[4];
 var y_btn = keyboard_buttons[5];
+var u_btn = keyboard_buttons[5];
+var i_btn = keyboard_buttons[5];
+var o_btn = keyboard_buttons[5];
+var p_btn = keyboard_buttons[5];
 AddEventListeners();
 function AddEventListeners() {
     q_btn.onclick = function () {
-        alert("Q");
+        AddLetter("q");
     };
     w_btn.onclick = function () {
         alert("W");
@@ -38,6 +42,18 @@ function AddEventListeners() {
     };
     y_btn.onclick = function () {
         alert("Y");
+    };
+    u_btn.onclick = function () {
+        alert("u");
+    };
+    i_btn.onclick = function () {
+        alert("i");
+    };
+    o_btn.onclick = function () {
+        alert("o");
+    };
+    p_btn.onclick = function () {
+        alert("p");
     };
 }
 function AddLetter(letter) {

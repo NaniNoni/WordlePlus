@@ -24,13 +24,17 @@ const e_btn = <HTMLButtonElement>keyboard_buttons[2];
 const r_btn = <HTMLButtonElement>keyboard_buttons[3];
 const t_btn = <HTMLButtonElement>keyboard_buttons[4];
 const y_btn = <HTMLButtonElement>keyboard_buttons[5];
+const u_btn = <HTMLButtonElement>keyboard_buttons[5];
+const i_btn = <HTMLButtonElement>keyboard_buttons[5];
+const o_btn = <HTMLButtonElement>keyboard_buttons[5];
+const p_btn = <HTMLButtonElement>keyboard_buttons[5];
 
 AddEventListeners();
 
 
 function AddEventListeners () {
     q_btn.onclick = () => {
-        alert("Q");
+        AddLetter("q");
     }
     w_btn.onclick = () => {
         alert("W");
@@ -47,7 +51,21 @@ function AddEventListeners () {
     y_btn.onclick = () => {
         alert("Y");
     }
+    u_btn.onclick = () => {
+        alert("u");
+    }
+    i_btn.onclick = () => {
+        alert("i");
+    }
+    o_btn.onclick = () => {
+        alert("o");
+    }
+    p_btn.onclick = () => {
+        alert("p");
+    }
 }
+
+
 function AddLetter(letter: string) {
     current.box().value = letter;
 }

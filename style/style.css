@@ -1,10 +1,8 @@
 body {
   margin: 40px;
-  display: flex;
-  justify-content: center;
 }
 
-.board {
+.square {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,34 +11,39 @@ body {
   border-radius: 5px;
   font-size: 150%;
 }
-.board .letter-holder {
+.square .letter-holder {
   height: 100%;
   width: 100%;
   background-color: transparent;
   border: none;
   text-align: center;
+  text-transform: uppercase;
   font-size: 330%;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bolder;
 }
-.board .line-1 {
+.square .line-1 {
   background-color: green;
 }
-.board .line-3 {
+.square .line-3 {
   background-color: green;
 }
-.board .line-5 {
+.square .line-5 {
   background-color: green;
 }
 
 .board-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.board-wrapper .board {
   width: 600px;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(5, 100px);
   grid-template-rows: repeat(5, 100px);
   grid-auto-flow: row;
-  margin: 7%;
+  margin: 1%;
 }
 
 .keyboard-wrapper {
@@ -50,17 +53,28 @@ body {
 .keyboard-wrapper .keyboard-grid {
   display: grid;
   grid-auto-flow: row;
+  gap: 3%;
 }
 .keyboard-wrapper .keyboard-grid .key-line {
   display: flex;
   justify-content: center;
 }
-.keyboard-wrapper .keyboard-grid .keyboard-button {
+
+.keyboard-button {
   text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 150%;
   border: none;
   border-radius: 2px;
   height: 100px;
-  width: 50px;
+  width: 75px;
+  margin: 4px;
+}
+
+.special-button {
+  width: 150px;
 }
 
 .wordle-game {

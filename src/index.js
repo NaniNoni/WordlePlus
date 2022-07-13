@@ -12,20 +12,45 @@ const lines = {
     four: line_4,
     five: line_5
 };
-console.log(CheckLine(lines.one));
+const keyboard_buttons = document.getElementsByClassName("keyboard-button");
+const current = {
+    line: lines.one,
+    box: this.line[0]
+};
+let a_btn = keyboard_buttons[0];
+function AddEventListeners() {
+    //a_btn.addEventListener("click", AddLetter);
+}
+function AddLetter(letter) {
+    current.box.value = letter;
+}
+CompareWords(CheckLine(lines.one));
 function CheckLine(line) {
-    let letters = new Array();
+    let letters = [];
     letters[0] = line[0].value;
     letters[1] = line[1].value;
     letters[2] = line[2].value;
     letters[3] = line[3].value;
     letters[4] = line[4].value;
-    const lettersAsString = letters.join("");
-    return lettersAsString;
+    return letters;
+}
+function CompareWords(playerInput) {
+    let letter_1 = playerInput[0] === wordAsArray[0];
+    let letter_2 = playerInput[1] === wordAsArray[1];
+    let letter_3 = playerInput[2] === wordAsArray[2];
+    let letter_4 = playerInput[3] === wordAsArray[3];
+    let letter_5 = playerInput[4] === wordAsArray[4];
+    const wordsAreCorrect = letter_1 && letter_2 && letter_3 && letter_4 && letter_5;
+    if (wordsAreCorrect) {
+        Win();
+    }
+}
+function Win() {
+    alert("YOU WON");
 }
 function CheckAllSquares() {
     // Setting all of the squares
-    let squares = new Array();
+    let squares = [];
     squares[0] = line_1[0].value;
     squares[1] = line_1[1].value;
     squares[2] = line_1[2].value;

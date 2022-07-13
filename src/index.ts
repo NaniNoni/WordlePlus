@@ -7,19 +7,47 @@ const line_3 = document.getElementsByClassName("line-3");
 const line_4 = document.getElementsByClassName("line-4");
 const line_5 = document.getElementsByClassName("line-5");
 
-
 const lines = {
     one: line_1,
     two: line_2,
     three: line_3,
     four: line_4,
     five: line_5
+};
+
+
+const keyboard_buttons = document.getElementsByClassName("keyboard-button");
+
+const current = {
+    line: lines.one,
+    box: <HTMLInputElement>this.line[0]
+};
+
+let a_btn = <HTMLButtonElement>keyboard_buttons[0];
+
+
+
+
+function AddEventListeners () {
+    //a_btn.addEventListener("click", AddLetter);
+}
+function AddLetter(letter: string) {
+    current.box.value = letter;
 }
 
-console.log(CheckLine(lines.one));
 
-function CheckLine(line) : string {
-    let letters: string[] = new Array();
+
+
+
+
+
+
+
+
+CompareWords(CheckLine(lines.one));
+
+function CheckLine(line) : string[] {
+    let letters: string[] = [];
 
     letters[0] = (<HTMLInputElement>line[0]).value;
     letters[1] = (<HTMLInputElement>line[1]).value;
@@ -27,13 +55,30 @@ function CheckLine(line) : string {
     letters[3] = (<HTMLInputElement>line[3]).value;
     letters[4] = (<HTMLInputElement>line[4]).value;
 
-    const lettersAsString = letters.join("");
-    return lettersAsString;
+    return letters;
+}
+
+function CompareWords (playerInput: string[]) {
+    let letter_1 = playerInput[0] === wordAsArray[0];
+    let letter_2 = playerInput[1] === wordAsArray[1];
+    let letter_3 = playerInput[2] === wordAsArray[2];
+    let letter_4 = playerInput[3] === wordAsArray[3];
+    let letter_5 = playerInput[4] === wordAsArray[4];
+
+    const wordsAreCorrect = letter_1 && letter_2 && letter_3 && letter_4 && letter_5;
+
+    if (wordsAreCorrect) {
+        Win ();
+    }
+}
+
+function Win () {
+    alert("YOU WON");
 }
 
 function CheckAllSquares (): string[] {
     // Setting all of the squares
-    let squares: string[] = new Array();
+    let squares: string[] = [];
     squares[0] = (<HTMLInputElement>line_1[0]).value;
     squares[1] = (<HTMLInputElement>line_1[1]).value;
     squares[2] = (<HTMLInputElement>line_1[2]).value;

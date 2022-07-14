@@ -10,13 +10,14 @@ const lines = {
     six: document.getElementsByClassName("line-6")
 };
 
+const letter_holders = document.getElementsByClassName("letter-holder");
 
 const keyboard_buttons = document.getElementsByClassName("keyboard-button");
 
 const current = {
     boxIndex: 0,
-    line: lines.one,
-    box: () => <HTMLInputElement>current.line[current.boxIndex]
+    box: () => <HTMLInputElement>letter_holders[current.boxIndex],
+    line: lines.one
 };
 
 const q_btn = <HTMLButtonElement>keyboard_buttons[0];
@@ -25,83 +26,72 @@ const e_btn = <HTMLButtonElement>keyboard_buttons[2];
 const r_btn = <HTMLButtonElement>keyboard_buttons[3];
 const t_btn = <HTMLButtonElement>keyboard_buttons[4];
 const y_btn = <HTMLButtonElement>keyboard_buttons[5];
-const u_btn = <HTMLButtonElement>keyboard_buttons[5];
-const i_btn = <HTMLButtonElement>keyboard_buttons[5];
-const o_btn = <HTMLButtonElement>keyboard_buttons[5];
-const p_btn = <HTMLButtonElement>keyboard_buttons[5];
+const u_btn = <HTMLButtonElement>keyboard_buttons[6];
+const i_btn = <HTMLButtonElement>keyboard_buttons[7];
+const o_btn = <HTMLButtonElement>keyboard_buttons[8];
+const p_btn = <HTMLButtonElement>keyboard_buttons[9];
 
-AddEventListeners();
-console.log(IncrementLine(current.line));
+AddKeyboardListeners();
 
-function AddEventListeners () {
+function CheckCompletionAndAddLetter(letter: string) {
+    if (CheckLineCompletion()) {
+        alert("LINE IS FULL");
+    } else AddLetter(letter);
+}
+
+
+function AddKeyboardListeners () {
     q_btn.onclick = () => {
-        AddLetter("q");
+        CheckCompletionAndAddLetter("q");
     }
     w_btn.onclick = () => {
-        AddLetter("w");
+        CheckCompletionAndAddLetter("w");
     }
     e_btn.onclick = () => {
-        AddLetter("e");
+        CheckCompletionAndAddLetter("e");
     }
     r_btn.onclick = () => {
-        AddLetter("r");
+        CheckCompletionAndAddLetter("r");
     }
     t_btn.onclick = () => {
-        AddLetter("t");
+        CheckCompletionAndAddLetter("t");
     }
     y_btn.onclick = () => {
-        AddLetter("y");
+        CheckCompletionAndAddLetter("y");
     }
     u_btn.onclick = () => {
-        AddLetter("u");
+        CheckCompletionAndAddLetter("u");
     }
     i_btn.onclick = () => {
-        alert("i");
+        CheckCompletionAndAddLetter("i");
     }
     o_btn.onclick = () => {
-        alert("o");
+        CheckCompletionAndAddLetter("o");
     }
     p_btn.onclick = () => {
-        alert("p");
+        CheckCompletionAndAddLetter("p");
     }
 }
 
 
 function AddLetter(letter: string) {
     current.box().value = letter;
-    
-    let isOnLastBox = current.box() === lines.one[4] || lines.two[4] || lines.three[4] || lines.five[4]
-
-    if (isOnLastBox) {
-        IncrementLine(current.line);
-    }
 
     current.boxIndex++;
-    current.box = () => <HTMLInputElement>current.line[current.boxIndex];
+    current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
-function IncrementLine(line) {
-    if (line === lines.one) {
-        return lines.two;
+function CheckLineCompletion () : boolean {
+    if (current.boxIndex % 5 === 0 && current.boxIndex != 0) {
+        return true;
     }
-    else if (line === lines.two) {
-        return lines.three;
-    }
-    else if (line === lines.three) {
-        return lines.four;
-    }
-    else if (line === lines.four) {
-        return lines.five;
-    }
-    else if (line === lines.six) {
-        return lines.six;
-    }
+    else return false;
 }
 
 // An example of a use case:
-// CompareWords(CheckLine(current.line));
+// CompareWords(GetLine(current.line));
 
-function CheckLine(line) : string[] {
+function GetLine(line) : string[] {
     let letters: string[] = [];
 
     letters[0] = (<HTMLInputElement>line[0]).value;

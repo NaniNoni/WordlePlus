@@ -8,11 +8,12 @@ var lines = {
     five: document.getElementsByClassName("line-5"),
     six: document.getElementsByClassName("line-6")
 };
+var letter_holders = document.getElementsByClassName("letter-holder");
 var keyboard_buttons = document.getElementsByClassName("keyboard-button");
 var current = {
     boxIndex: 0,
-    line: lines.one,
-    box: function () { return current.line[current.boxIndex]; }
+    box: function () { return letter_holders[current.boxIndex]; },
+    line: lines.one
 };
 var q_btn = keyboard_buttons[0];
 var w_btn = keyboard_buttons[1];
@@ -20,73 +21,65 @@ var e_btn = keyboard_buttons[2];
 var r_btn = keyboard_buttons[3];
 var t_btn = keyboard_buttons[4];
 var y_btn = keyboard_buttons[5];
-var u_btn = keyboard_buttons[5];
-var i_btn = keyboard_buttons[5];
-var o_btn = keyboard_buttons[5];
-var p_btn = keyboard_buttons[5];
-AddEventListeners();
-console.log(IncrementLine(current.line));
-function AddEventListeners() {
+var u_btn = keyboard_buttons[6];
+var i_btn = keyboard_buttons[7];
+var o_btn = keyboard_buttons[8];
+var p_btn = keyboard_buttons[9];
+AddKeyboardListeners();
+function CheckCompletionAndAddLetter(letter) {
+    if (CheckLineCompletion()) {
+        alert("LINE IS FULL");
+    }
+    else
+        AddLetter(letter);
+}
+function AddKeyboardListeners() {
     q_btn.onclick = function () {
-        AddLetter("q");
+        CheckCompletionAndAddLetter("q");
     };
     w_btn.onclick = function () {
-        AddLetter("w");
+        CheckCompletionAndAddLetter("w");
     };
     e_btn.onclick = function () {
-        AddLetter("e");
+        CheckCompletionAndAddLetter("e");
     };
     r_btn.onclick = function () {
-        AddLetter("r");
+        CheckCompletionAndAddLetter("r");
     };
     t_btn.onclick = function () {
-        AddLetter("t");
+        CheckCompletionAndAddLetter("t");
     };
     y_btn.onclick = function () {
-        AddLetter("y");
+        CheckCompletionAndAddLetter("y");
     };
     u_btn.onclick = function () {
-        AddLetter("u");
+        CheckCompletionAndAddLetter("u");
     };
     i_btn.onclick = function () {
-        alert("i");
+        CheckCompletionAndAddLetter("i");
     };
     o_btn.onclick = function () {
-        alert("o");
+        CheckCompletionAndAddLetter("o");
     };
     p_btn.onclick = function () {
-        alert("p");
+        CheckCompletionAndAddLetter("p");
     };
 }
 function AddLetter(letter) {
     current.box().value = letter;
-    var isOnLastBox = current.box() === lines.one[4] || lines.two[4] || lines.three[4] || lines.five[4];
-    if (isOnLastBox) {
-        IncrementLine(current.line);
-    }
     current.boxIndex++;
-    current.box = function () { return current.line[current.boxIndex]; };
+    current.box = function () { return letter_holders[current.boxIndex]; };
 }
-function IncrementLine(line) {
-    if (line === lines.one) {
-        return lines.two;
+function CheckLineCompletion() {
+    if (current.boxIndex % 5 === 0 && current.boxIndex != 0) {
+        return true;
     }
-    else if (line === lines.two) {
-        return lines.three;
-    }
-    else if (line === lines.three) {
-        return lines.four;
-    }
-    else if (line === lines.four) {
-        return lines.five;
-    }
-    else if (line === lines.six) {
-        return lines.six;
-    }
+    else
+        return false;
 }
 // An example of a use case:
-// CompareWords(CheckLine(current.line));
-function CheckLine(line) {
+// CompareWords(GetLine(current.line));
+function GetLine(line) {
     var letters = [];
     letters[0] = line[0].value;
     letters[1] = line[1].value;

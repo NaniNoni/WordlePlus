@@ -14,8 +14,9 @@ const lines = {
 const keyboard_buttons = document.getElementsByClassName("keyboard-button");
 
 const current = {
+    boxIndex: 0,
     line: lines.one,
-    box: () => <HTMLInputElement>current.line[0]
+    box: () => <HTMLInputElement>current.line[current.boxIndex]
 };
 
 const q_btn = <HTMLButtonElement>keyboard_buttons[0];
@@ -30,29 +31,29 @@ const o_btn = <HTMLButtonElement>keyboard_buttons[5];
 const p_btn = <HTMLButtonElement>keyboard_buttons[5];
 
 AddEventListeners();
-
+console.log(IncrementLine(current.line));
 
 function AddEventListeners () {
     q_btn.onclick = () => {
         AddLetter("q");
     }
     w_btn.onclick = () => {
-        alert("W");
+        AddLetter("w");
     }
     e_btn.onclick = () => {
-        alert("E");
+        AddLetter("e");
     }
     r_btn.onclick = () => {
-        alert("R");
+        AddLetter("r");
     }
     t_btn.onclick = () => {
-        alert("T");
+        AddLetter("t");
     }
     y_btn.onclick = () => {
-        alert("Y");
+        AddLetter("y");
     }
     u_btn.onclick = () => {
-        alert("u");
+        AddLetter("u");
     }
     i_btn.onclick = () => {
         alert("i");
@@ -68,6 +69,33 @@ function AddEventListeners () {
 
 function AddLetter(letter: string) {
     current.box().value = letter;
+    
+    let isOnLastBox = current.box() === lines.one[4] || lines.two[4] || lines.three[4] || lines.five[4]
+
+    if (isOnLastBox) {
+        IncrementLine(current.line);
+    }
+
+    current.boxIndex++;
+    current.box = () => <HTMLInputElement>current.line[current.boxIndex];
+}
+
+function IncrementLine(line) {
+    if (line === lines.one) {
+        return lines.two;
+    }
+    else if (line === lines.two) {
+        return lines.three;
+    }
+    else if (line === lines.three) {
+        return lines.four;
+    }
+    else if (line === lines.four) {
+        return lines.five;
+    }
+    else if (line === lines.six) {
+        return lines.six;
+    }
 }
 
 // An example of a use case:

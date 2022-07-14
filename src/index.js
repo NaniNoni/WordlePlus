@@ -10,8 +10,9 @@ var lines = {
 };
 var keyboard_buttons = document.getElementsByClassName("keyboard-button");
 var current = {
+    boxIndex: 0,
     line: lines.one,
-    box: function () { return current.line[0]; }
+    box: function () { return current.line[current.boxIndex]; }
 };
 var q_btn = keyboard_buttons[0];
 var w_btn = keyboard_buttons[1];
@@ -24,27 +25,28 @@ var i_btn = keyboard_buttons[5];
 var o_btn = keyboard_buttons[5];
 var p_btn = keyboard_buttons[5];
 AddEventListeners();
+console.log(IncrementLine(current.line));
 function AddEventListeners() {
     q_btn.onclick = function () {
         AddLetter("q");
     };
     w_btn.onclick = function () {
-        alert("W");
+        AddLetter("w");
     };
     e_btn.onclick = function () {
-        alert("E");
+        AddLetter("e");
     };
     r_btn.onclick = function () {
-        alert("R");
+        AddLetter("r");
     };
     t_btn.onclick = function () {
-        alert("T");
+        AddLetter("t");
     };
     y_btn.onclick = function () {
-        alert("Y");
+        AddLetter("y");
     };
     u_btn.onclick = function () {
-        alert("u");
+        AddLetter("u");
     };
     i_btn.onclick = function () {
         alert("i");
@@ -58,6 +60,29 @@ function AddEventListeners() {
 }
 function AddLetter(letter) {
     current.box().value = letter;
+    var isOnLastBox = current.box() === lines.one[4] || lines.two[4] || lines.three[4] || lines.five[4];
+    if (isOnLastBox) {
+        IncrementLine(current.line);
+    }
+    current.boxIndex++;
+    current.box = function () { return current.line[current.boxIndex]; };
+}
+function IncrementLine(line) {
+    if (line === lines.one) {
+        return lines.two;
+    }
+    else if (line === lines.two) {
+        return lines.three;
+    }
+    else if (line === lines.three) {
+        return lines.four;
+    }
+    else if (line === lines.four) {
+        return lines.five;
+    }
+    else if (line === lines.six) {
+        return lines.six;
+    }
 }
 // An example of a use case:
 // CompareWords(CheckLine(current.line));

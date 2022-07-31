@@ -16,76 +16,153 @@ const keyboard_buttons = document.getElementsByClassName("keyboard-button");
 
 const current = {
     boxIndex: 0,
-    box: () => <HTMLInputElement>letter_holders[current.boxIndex],
-    line: lines.one
+    box: () => <HTMLInputElement>letter_holders[current.boxIndex]
 };
 
-const q_btn = <HTMLButtonElement>keyboard_buttons[0];
-const w_btn = <HTMLButtonElement>keyboard_buttons[1];
-const e_btn = <HTMLButtonElement>keyboard_buttons[2];
-const r_btn = <HTMLButtonElement>keyboard_buttons[3];
-const t_btn = <HTMLButtonElement>keyboard_buttons[4];
-const y_btn = <HTMLButtonElement>keyboard_buttons[5];
-const u_btn = <HTMLButtonElement>keyboard_buttons[6];
-const i_btn = <HTMLButtonElement>keyboard_buttons[7];
-const o_btn = <HTMLButtonElement>keyboard_buttons[8];
-const p_btn = <HTMLButtonElement>keyboard_buttons[9];
+let submitted = false;
 
 AddKeyboardListeners();
-
-function CheckCompletionAndAddLetter(letter: string) {
-    if (CheckLineCompletion()) {
-        alert("LINE IS FULL");
-    } else AddLetter(letter);
-}
-
+AddSpecialListeners();
 
 function AddKeyboardListeners () {
+    const q_btn = <HTMLButtonElement>keyboard_buttons[0];
+    const w_btn = <HTMLButtonElement>keyboard_buttons[1];
+    const e_btn = <HTMLButtonElement>keyboard_buttons[2];
+    const r_btn = <HTMLButtonElement>keyboard_buttons[3];
+    const t_btn = <HTMLButtonElement>keyboard_buttons[4];
+    const y_btn = <HTMLButtonElement>keyboard_buttons[5];
+    const u_btn = <HTMLButtonElement>keyboard_buttons[6];
+    const i_btn = <HTMLButtonElement>keyboard_buttons[7];
+    const o_btn = <HTMLButtonElement>keyboard_buttons[8];
+    const p_btn = <HTMLButtonElement>keyboard_buttons[9];
+
     q_btn.onclick = () => {
-        CheckCompletionAndAddLetter("q");
+        CanSubmitAndAddLetter("q");
     }
     w_btn.onclick = () => {
-        CheckCompletionAndAddLetter("w");
+        CanSubmitAndAddLetter("w");
     }
     e_btn.onclick = () => {
-        CheckCompletionAndAddLetter("e");
+        CanSubmitAndAddLetter("e");
     }
     r_btn.onclick = () => {
-        CheckCompletionAndAddLetter("r");
+        CanSubmitAndAddLetter("r");
     }
     t_btn.onclick = () => {
-        CheckCompletionAndAddLetter("t");
+        CanSubmitAndAddLetter("t");
     }
     y_btn.onclick = () => {
-        CheckCompletionAndAddLetter("y");
+        CanSubmitAndAddLetter("y");
     }
     u_btn.onclick = () => {
-        CheckCompletionAndAddLetter("u");
+        CanSubmitAndAddLetter("u");
     }
     i_btn.onclick = () => {
-        CheckCompletionAndAddLetter("i");
+        CanSubmitAndAddLetter("i");
     }
     o_btn.onclick = () => {
-        CheckCompletionAndAddLetter("o");
+        CanSubmitAndAddLetter("o");
     }
     p_btn.onclick = () => {
-        CheckCompletionAndAddLetter("p");
+        CanSubmitAndAddLetter("p");
     }
 }
 
+function AddSpecialListeners () {
+    const enter_btn = <HTMLInputElement>keyboard_buttons[19];
+    const del_btn = <HTMLInputElement>keyboard_buttons[27];
 
-function AddLetter(letter: string) {
-    current.box().value = letter;
+    enter_btn.onclick = () => {
+        if (CanSubmit()) {
+            Submit();
+        }
+    }
+    del_btn.onclick = () => {
+        alert("DELETE");
+    }
+}
 
+function Submit () {
+    if (submitted) return;
+    
     current.boxIndex++;
+    console.log("NEXTLINE");
+    console.log(current.boxIndex);
+}
+
+function CanSubmitAndAddLetter(letter: string) : boolean {
+    if (current.boxIndex <= 4) {
+        if (((<HTMLInputElement>letter_holders[4]).value) !== "")
+            return true;
+
+        current.box().value = letter;
+        
+        if (current.boxIndex !== 4)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 9) {
+        if (((<HTMLInputElement>letter_holders[9]).value) !== "")
+            return true;
+
+        current.box().value = letter;
+        
+        if (current.boxIndex !== 9)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 14) {
+        if (((<HTMLInputElement>letter_holders[14]).value) !== "")
+            return true;
+
+        current.box().value = letter;
+        
+        if (current.boxIndex !== 14)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 19) {
+        if (((<HTMLInputElement>letter_holders[19]).value) !== "")
+            return true;
+
+        current.box().value = letter;
+        
+        if (current.boxIndex !== 19)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 24) {
+        if (((<HTMLInputElement>letter_holders[24]).value) !== "")
+            return true;
+
+        current.box().value = letter;
+        
+        if (current.boxIndex !== 24)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 29) {
+        if (((<HTMLInputElement>letter_holders[29]).value) !== "")
+            return true;
+
+        current.box().value = letter;
+        
+        if (current.boxIndex !== 29)
+            current.boxIndex++;
+    }
+    else {
+        console.log(`boxIndex: ${current.boxIndex}`);
+        return true;
+    }
+
+    console.log(`boxIndex: ${current.boxIndex}`);
     current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
-function CheckLineCompletion () : boolean {
-    if (current.boxIndex % 5 === 0 && current.boxIndex != 0) {
+function CanSubmit() : boolean {
+    if (current.boxIndex < 4) {
+        current.boxIndex++;
+    } else {
         return true;
     }
-    else return false;
+
+    console.log(`boxIndex: ${current.boxIndex}`);
+    current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
 // An example of a use case:
@@ -120,48 +197,3 @@ function CompareWords (playerInput: string[]) {
 function Win () {
     alert("YOU WON");
 }
-
-
-
-
-
-
-
-
-/*
-function CheckAllSquares (): string[] {
-    // Setting all of the squares
-    let squares: string[] = [];
-    squares[0] = (<HTMLInputElement>line_1[0]).value;
-    squares[1] = (<HTMLInputElement>line_1[1]).value;
-    squares[2] = (<HTMLInputElement>line_1[2]).value;
-    squares[3] = (<HTMLInputElement>line_1[3]).value;
-    squares[4] = (<HTMLInputElement>line_1[4]).value;
-
-    squares[5] = (<HTMLInputElement>line_2[0]).value;
-    squares[6] = (<HTMLInputElement>line_2[1]).value;
-    squares[7] = (<HTMLInputElement>line_2[2]).value;
-    squares[8] = (<HTMLInputElement>line_2[3]).value;
-    squares[9] = (<HTMLInputElement>line_2[4]).value;
-
-    squares[10] = (<HTMLInputElement>line_3[0]).value;
-    squares[11] = (<HTMLInputElement>line_3[1]).value;
-    squares[12] = (<HTMLInputElement>line_3[2]).value;
-    squares[13] = (<HTMLInputElement>line_3[3]).value;
-    squares[14] = (<HTMLInputElement>line_3[4]).value;
-
-    squares[15] = (<HTMLInputElement>line_4[0]).value;
-    squares[16] = (<HTMLInputElement>line_4[1]).value;
-    squares[17] = (<HTMLInputElement>line_4[2]).value;
-    squares[18] = (<HTMLInputElement>line_4[3]).value;
-    squares[19] = (<HTMLInputElement>line_4[4]).value;
-
-    squares[20] = (<HTMLInputElement>line_5[0]).value;
-    squares[21] = (<HTMLInputElement>line_5[1]).value;
-    squares[22] = (<HTMLInputElement>line_5[2]).value;
-    squares[23] = (<HTMLInputElement>line_5[3]).value;
-    squares[24] = (<HTMLInputElement>line_5[4]).value;
-
-    return squares;
-}
-*/

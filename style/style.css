@@ -75,6 +75,13 @@ body {
 
 .special-button {
   width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.special-button .delete-icon {
+  width: 90px;
+  height: 90px;
 }
 
 .wordle-game {

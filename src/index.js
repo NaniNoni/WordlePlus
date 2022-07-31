@@ -12,70 +12,131 @@ var letter_holders = document.getElementsByClassName("letter-holder");
 var keyboard_buttons = document.getElementsByClassName("keyboard-button");
 var current = {
     boxIndex: 0,
-    box: function () { return letter_holders[current.boxIndex]; },
-    line: lines.one
+    box: function () { return letter_holders[current.boxIndex]; }
 };
-var q_btn = keyboard_buttons[0];
-var w_btn = keyboard_buttons[1];
-var e_btn = keyboard_buttons[2];
-var r_btn = keyboard_buttons[3];
-var t_btn = keyboard_buttons[4];
-var y_btn = keyboard_buttons[5];
-var u_btn = keyboard_buttons[6];
-var i_btn = keyboard_buttons[7];
-var o_btn = keyboard_buttons[8];
-var p_btn = keyboard_buttons[9];
+var submitted = false;
 AddKeyboardListeners();
-function CheckCompletionAndAddLetter(letter) {
-    if (CheckLineCompletion()) {
-        alert("LINE IS FULL");
-    }
-    else
-        AddLetter(letter);
-}
+AddSpecialListeners();
 function AddKeyboardListeners() {
+    var q_btn = keyboard_buttons[0];
+    var w_btn = keyboard_buttons[1];
+    var e_btn = keyboard_buttons[2];
+    var r_btn = keyboard_buttons[3];
+    var t_btn = keyboard_buttons[4];
+    var y_btn = keyboard_buttons[5];
+    var u_btn = keyboard_buttons[6];
+    var i_btn = keyboard_buttons[7];
+    var o_btn = keyboard_buttons[8];
+    var p_btn = keyboard_buttons[9];
     q_btn.onclick = function () {
-        CheckCompletionAndAddLetter("q");
+        CanSubmitAndAddLetter("q");
     };
     w_btn.onclick = function () {
-        CheckCompletionAndAddLetter("w");
+        CanSubmitAndAddLetter("w");
     };
     e_btn.onclick = function () {
-        CheckCompletionAndAddLetter("e");
+        CanSubmitAndAddLetter("e");
     };
     r_btn.onclick = function () {
-        CheckCompletionAndAddLetter("r");
+        CanSubmitAndAddLetter("r");
     };
     t_btn.onclick = function () {
-        CheckCompletionAndAddLetter("t");
+        CanSubmitAndAddLetter("t");
     };
     y_btn.onclick = function () {
-        CheckCompletionAndAddLetter("y");
+        CanSubmitAndAddLetter("y");
     };
     u_btn.onclick = function () {
-        CheckCompletionAndAddLetter("u");
+        CanSubmitAndAddLetter("u");
     };
     i_btn.onclick = function () {
-        CheckCompletionAndAddLetter("i");
+        CanSubmitAndAddLetter("i");
     };
     o_btn.onclick = function () {
-        CheckCompletionAndAddLetter("o");
+        CanSubmitAndAddLetter("o");
     };
     p_btn.onclick = function () {
-        CheckCompletionAndAddLetter("p");
+        CanSubmitAndAddLetter("p");
     };
 }
-function AddLetter(letter) {
-    current.box().value = letter;
-    current.boxIndex++;
-    current.box = function () { return letter_holders[current.boxIndex]; };
+function AddSpecialListeners() {
+    var enter_btn = keyboard_buttons[19];
+    var del_btn = keyboard_buttons[27];
+    enter_btn.onclick = function () {
+        if (CanSubmit()) {
+            Submit();
+        }
+    };
+    del_btn.onclick = function () {
+        alert("DELETE");
+    };
 }
-function CheckLineCompletion() {
-    if (current.boxIndex % 5 === 0 && current.boxIndex != 0) {
+function Submit() {
+    if (submitted)
+        return;
+    current.boxIndex++;
+    console.log("NEXTLINE");
+    console.log(current.boxIndex);
+}
+function CanSubmitAndAddLetter(letter) {
+    if (current.boxIndex <= 4) {
+        if ((letter_holders[4].value) !== "")
+            return true;
+        current.box().value = letter;
+        if (current.boxIndex !== 4)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 9) {
+        if ((letter_holders[9].value) !== "")
+            return true;
+        current.box().value = letter;
+        if (current.boxIndex !== 9)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 14) {
+        if ((letter_holders[14].value) !== "")
+            return true;
+        current.box().value = letter;
+        if (current.boxIndex !== 14)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 19) {
+        if ((letter_holders[19].value) !== "")
+            return true;
+        current.box().value = letter;
+        if (current.boxIndex !== 19)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 24) {
+        if ((letter_holders[24].value) !== "")
+            return true;
+        current.box().value = letter;
+        if (current.boxIndex !== 24)
+            current.boxIndex++;
+    }
+    else if (current.boxIndex <= 29) {
+        if ((letter_holders[29].value) !== "")
+            return true;
+        current.box().value = letter;
+        if (current.boxIndex !== 29)
+            current.boxIndex++;
+    }
+    else {
+        console.log("boxIndex: ".concat(current.boxIndex));
         return true;
     }
-    else
-        return false;
+    console.log("boxIndex: ".concat(current.boxIndex));
+    current.box = function () { return letter_holders[current.boxIndex]; };
+}
+function CanSubmit() {
+    if (current.boxIndex < 4) {
+        current.boxIndex++;
+    }
+    else {
+        return true;
+    }
+    console.log("boxIndex: ".concat(current.boxIndex));
+    current.box = function () { return letter_holders[current.boxIndex]; };
 }
 // An example of a use case:
 // CompareWords(GetLine(current.line));
@@ -102,40 +163,3 @@ function CompareWords(playerInput) {
 function Win() {
     alert("YOU WON");
 }
-/*
-function CheckAllSquares (): string[] {
-    // Setting all of the squares
-    let squares: string[] = [];
-    squares[0] = (<HTMLInputElement>line_1[0]).value;
-    squares[1] = (<HTMLInputElement>line_1[1]).value;
-    squares[2] = (<HTMLInputElement>line_1[2]).value;
-    squares[3] = (<HTMLInputElement>line_1[3]).value;
-    squares[4] = (<HTMLInputElement>line_1[4]).value;
-
-    squares[5] = (<HTMLInputElement>line_2[0]).value;
-    squares[6] = (<HTMLInputElement>line_2[1]).value;
-    squares[7] = (<HTMLInputElement>line_2[2]).value;
-    squares[8] = (<HTMLInputElement>line_2[3]).value;
-    squares[9] = (<HTMLInputElement>line_2[4]).value;
-
-    squares[10] = (<HTMLInputElement>line_3[0]).value;
-    squares[11] = (<HTMLInputElement>line_3[1]).value;
-    squares[12] = (<HTMLInputElement>line_3[2]).value;
-    squares[13] = (<HTMLInputElement>line_3[3]).value;
-    squares[14] = (<HTMLInputElement>line_3[4]).value;
-
-    squares[15] = (<HTMLInputElement>line_4[0]).value;
-    squares[16] = (<HTMLInputElement>line_4[1]).value;
-    squares[17] = (<HTMLInputElement>line_4[2]).value;
-    squares[18] = (<HTMLInputElement>line_4[3]).value;
-    squares[19] = (<HTMLInputElement>line_4[4]).value;
-
-    squares[20] = (<HTMLInputElement>line_5[0]).value;
-    squares[21] = (<HTMLInputElement>line_5[1]).value;
-    squares[22] = (<HTMLInputElement>line_5[2]).value;
-    squares[23] = (<HTMLInputElement>line_5[3]).value;
-    squares[24] = (<HTMLInputElement>line_5[4]).value;
-
-    return squares;
-}
-*/ 

@@ -1,15 +1,6 @@
 let word = "ptaki"
 let wordAsArray = word.split("");
 
-const lines = {
-    one: document.getElementsByClassName("line-1"),
-    two: document.getElementsByClassName("line-2"),
-    three: document.getElementsByClassName("line-3"),
-    four: document.getElementsByClassName("line-4"),
-    five: document.getElementsByClassName("line-5"),
-    six: document.getElementsByClassName("line-6")
-};
-
 const letter_holders = document.getElementsByClassName("letter-holder");
 
 const keyboard_buttons = document.getElementsByClassName("keyboard-button");
@@ -35,36 +26,101 @@ function AddKeyboardListeners () {
     const i_btn = <HTMLButtonElement>keyboard_buttons[7];
     const o_btn = <HTMLButtonElement>keyboard_buttons[8];
     const p_btn = <HTMLButtonElement>keyboard_buttons[9];
+    const a_btn = <HTMLButtonElement>keyboard_buttons[10];
+    const s_btn = <HTMLButtonElement>keyboard_buttons[11];
+    const d_btn = <HTMLButtonElement>keyboard_buttons[12];
+    const f_btn = <HTMLButtonElement>keyboard_buttons[13];
+    const g_btn = <HTMLButtonElement>keyboard_buttons[14];
+    const h_btn = <HTMLButtonElement>keyboard_buttons[15];
+    const j_btn = <HTMLButtonElement>keyboard_buttons[16];
+    const k_btn = <HTMLButtonElement>keyboard_buttons[17];
+    const l_btn = <HTMLButtonElement>keyboard_buttons[18];
+    const z_btn = <HTMLButtonElement>keyboard_buttons[20];
+    const x_btn = <HTMLButtonElement>keyboard_buttons[21];
+    const c_btn = <HTMLButtonElement>keyboard_buttons[22];
+    const v_btn = <HTMLButtonElement>keyboard_buttons[23];
+    const b_btn = <HTMLButtonElement>keyboard_buttons[24];
+    const n_btn = <HTMLButtonElement>keyboard_buttons[25];
+    const m_btn = <HTMLButtonElement>keyboard_buttons[26];
+
 
     q_btn.onclick = () => {
-        CanSubmitAndAddLetter("q");
+        AddLetter("q");
     }
     w_btn.onclick = () => {
-        CanSubmitAndAddLetter("w");
+        AddLetter("w");
     }
     e_btn.onclick = () => {
-        CanSubmitAndAddLetter("e");
+        AddLetter("e");
     }
     r_btn.onclick = () => {
-        CanSubmitAndAddLetter("r");
+        AddLetter("r");
     }
     t_btn.onclick = () => {
-        CanSubmitAndAddLetter("t");
+        AddLetter("t");
     }
     y_btn.onclick = () => {
-        CanSubmitAndAddLetter("y");
+        AddLetter("y");
     }
     u_btn.onclick = () => {
-        CanSubmitAndAddLetter("u");
+        AddLetter("u");
     }
     i_btn.onclick = () => {
-        CanSubmitAndAddLetter("i");
+        AddLetter("i");
     }
     o_btn.onclick = () => {
-        CanSubmitAndAddLetter("o");
+        AddLetter("o");
     }
     p_btn.onclick = () => {
-        CanSubmitAndAddLetter("p");
+        AddLetter("p");
+    }
+    a_btn.onclick = () => {
+        AddLetter("a");
+    }
+    s_btn.onclick = () => {
+        AddLetter("s");
+    }
+    d_btn.onclick = () => {
+        AddLetter("d");
+    }
+    f_btn.onclick = () => {
+        AddLetter("f");
+    }
+    g_btn.onclick = () => {
+        AddLetter("g");
+    }
+    h_btn.onclick = () => {
+        AddLetter("h");
+    }
+    j_btn.onclick = () => {
+        AddLetter("j");
+    }
+    k_btn.onclick = () => {
+        AddLetter("k");
+    }
+    l_btn.onclick = () => {
+        AddLetter("l");
+    }
+    z_btn.onclick = () => {
+        AddLetter("z");
+    }
+    x_btn.onclick = () => {
+        AddLetter("x");
+    }
+    c_btn.onclick = () => {
+        AddLetter("c");
+    }
+    v_btn.onclick = () => {
+        AddLetter("v");
+    }
+    b_btn.onclick = () => {
+        AddLetter("b");
+    }
+    n_btn.onclick = () => {
+        AddLetter("n");
+    }
+    m_btn.onclick = () => {
+        AddLetter("m");
     }
 }
 
@@ -90,10 +146,10 @@ function Submit () {
     console.log(current.boxIndex);
 }
 
-function CanSubmitAndAddLetter(letter: string) : boolean {
+function AddLetter(letter: string) {
     if (current.boxIndex <= 4) {
         if (((<HTMLInputElement>letter_holders[4]).value) !== "")
-            return true;
+            return;
 
         current.box().value = letter;
         
@@ -102,7 +158,7 @@ function CanSubmitAndAddLetter(letter: string) : boolean {
     }
     else if (current.boxIndex <= 9) {
         if (((<HTMLInputElement>letter_holders[9]).value) !== "")
-            return true;
+            return;
 
         current.box().value = letter;
         
@@ -111,7 +167,7 @@ function CanSubmitAndAddLetter(letter: string) : boolean {
     }
     else if (current.boxIndex <= 14) {
         if (((<HTMLInputElement>letter_holders[14]).value) !== "")
-            return true;
+            return;
 
         current.box().value = letter;
         
@@ -120,7 +176,7 @@ function CanSubmitAndAddLetter(letter: string) : boolean {
     }
     else if (current.boxIndex <= 19) {
         if (((<HTMLInputElement>letter_holders[19]).value) !== "")
-            return true;
+            return;
 
         current.box().value = letter;
         
@@ -129,7 +185,7 @@ function CanSubmitAndAddLetter(letter: string) : boolean {
     }
     else if (current.boxIndex <= 24) {
         if (((<HTMLInputElement>letter_holders[24]).value) !== "")
-            return true;
+            return;
 
         current.box().value = letter;
         
@@ -138,7 +194,7 @@ function CanSubmitAndAddLetter(letter: string) : boolean {
     }
     else if (current.boxIndex <= 29) {
         if (((<HTMLInputElement>letter_holders[29]).value) !== "")
-            return true;
+            return;
 
         current.box().value = letter;
         
@@ -147,7 +203,7 @@ function CanSubmitAndAddLetter(letter: string) : boolean {
     }
     else {
         console.log(`boxIndex: ${current.boxIndex}`);
-        return true;
+        return;
     }
 
     console.log(`boxIndex: ${current.boxIndex}`);
@@ -158,40 +214,22 @@ function CanSubmit() : boolean {
     if (current.boxIndex < 4) {
         current.boxIndex++;
     } else {
-        return true;
+        return;
     }
 
     console.log(`boxIndex: ${current.boxIndex}`);
     current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
-// An example of a use case:
-// CompareWords(GetLine(current.line));
 
-function GetLine(line) : string[] {
-    let letters: string[] = [];
-
-    letters[0] = (<HTMLInputElement>line[0]).value;
-    letters[1] = (<HTMLInputElement>line[1]).value;
-    letters[2] = (<HTMLInputElement>line[2]).value;
-    letters[3] = (<HTMLInputElement>line[3]).value;
-    letters[4] = (<HTMLInputElement>line[4]).value;
-
-    return letters;
-}
-
-function CompareWords (playerInput: string[]) {
+function CompareWords (playerInput: string[]) : boolean {
     let letter_1 = playerInput[0] === wordAsArray[0];
     let letter_2 = playerInput[1] === wordAsArray[1];
     let letter_3 = playerInput[2] === wordAsArray[2];
     let letter_4 = playerInput[3] === wordAsArray[3];
     let letter_5 = playerInput[4] === wordAsArray[4];
 
-    const wordsAreCorrect = letter_1 && letter_2 && letter_3 && letter_4 && letter_5;
-
-    if (wordsAreCorrect) {
-        Win ();
-    }
+    return letter_1 && letter_2 && letter_3 && letter_4 && letter_5;
 }
 
 function Win () {

@@ -22,15 +22,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bolder;
 }
-.square .line-1 {
-  background-color: green;
-}
-.square .line-3 {
-  background-color: green;
-}
-.square .line-5 {
-  background-color: green;
-}
 
 .board-wrapper {
   display: flex;

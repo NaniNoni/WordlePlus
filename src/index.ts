@@ -2,7 +2,6 @@ let word = "ptaki"
 let wordAsArray = word.split("");
 
 const letter_holders = document.getElementsByClassName("letter-holder");
-
 const keyboard_buttons = document.getElementsByClassName("keyboard-button");
 
 const current = {
@@ -141,9 +140,11 @@ function AddSpecialListeners () {
 function Submit () {
     if (submitted) return;
     
-    current.boxIndex++;
-    console.log("NEXTLINE");
-    console.log(current.boxIndex);
+    //current.boxIndex++;
+
+    if (CompareWords(GetWordFromLine(GetLine()))) {
+        Win();
+    }
 }
 
 function AddLetter(letter: string) {
@@ -152,7 +153,8 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        
+        console.log(GetLine());
+
         if (current.boxIndex !== 4)
             current.boxIndex++;
     }
@@ -161,7 +163,8 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        
+        console.log(GetLine());
+
         if (current.boxIndex !== 9)
             current.boxIndex++;
     }
@@ -170,7 +173,8 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        
+        console.log(GetLine());
+
         if (current.boxIndex !== 14)
             current.boxIndex++;
     }
@@ -179,7 +183,8 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        
+        console.log(GetLine());
+
         if (current.boxIndex !== 19)
             current.boxIndex++;
     }
@@ -188,7 +193,8 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        
+        console.log(GetLine());
+
         if (current.boxIndex !== 24)
             current.boxIndex++;
     }
@@ -197,7 +203,8 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        
+        console.log(GetLine());
+
         if (current.boxIndex !== 29)
             current.boxIndex++;
     }
@@ -210,17 +217,103 @@ function AddLetter(letter: string) {
     current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
-function CanSubmit() : boolean {
+function CanSubmit() {
     if (current.boxIndex < 4) {
         current.boxIndex++;
     } else {
-        return;
+        return true;
     }
 
     console.log(`boxIndex: ${current.boxIndex}`);
     current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
+function GetLine() : number {
+    if (current.boxIndex <= 4)
+        return 1;
+    
+    else if (current.boxIndex > 4 && current.boxIndex <= 9)
+        return 2;
+    
+    else if (current.boxIndex > 9 && current.boxIndex <= 14)
+        return 3;
+    
+    else if (current.boxIndex > 14 && current.boxIndex <= 19)
+        return 4;
+    
+    else if (current.boxIndex > 19 && current.boxIndex <= 24)
+        return 5;
+    
+    else if (current.boxIndex > 24 && current.boxIndex <= 29)
+        return 6;
+    
+    else {
+        console.error("function GetLine() doesn't work!");
+        return 0;
+    }
+}
+
+function GetWordFromLine (lineNum: number) {
+    if (lineNum === 1) {
+        return [
+            (<HTMLInputElement>letter_holders[0]).value,
+            (<HTMLInputElement>letter_holders[1]).value,
+            (<HTMLInputElement>letter_holders[2]).value,
+            (<HTMLInputElement>letter_holders[3]).value,
+            (<HTMLInputElement>letter_holders[4]).value
+        ];
+    }
+    else if (lineNum === 2) {
+        return [
+            (<HTMLInputElement>letter_holders[5]).value,
+            (<HTMLInputElement>letter_holders[6]).value,
+            (<HTMLInputElement>letter_holders[7]).value,
+            (<HTMLInputElement>letter_holders[8]).value,
+            (<HTMLInputElement>letter_holders[9]).value
+        ];
+    }
+    else if (lineNum === 3) {
+        return [
+            (<HTMLInputElement>letter_holders[10]).value,
+            (<HTMLInputElement>letter_holders[11]).value,
+            (<HTMLInputElement>letter_holders[12]).value,
+            (<HTMLInputElement>letter_holders[13]).value,
+            (<HTMLInputElement>letter_holders[14]).value
+        ];
+    }
+    else if (lineNum === 4) {
+        return [
+            (<HTMLInputElement>letter_holders[15]).value,
+            (<HTMLInputElement>letter_holders[16]).value,
+            (<HTMLInputElement>letter_holders[17]).value,
+            (<HTMLInputElement>letter_holders[18]).value,
+            (<HTMLInputElement>letter_holders[19]).value
+        ];
+    }
+    else if (lineNum === 5) {
+        return [
+            (<HTMLInputElement>letter_holders[20]).value,
+            (<HTMLInputElement>letter_holders[21]).value,
+            (<HTMLInputElement>letter_holders[22]).value,
+            (<HTMLInputElement>letter_holders[23]).value,
+            (<HTMLInputElement>letter_holders[24]).value
+        ];
+    }
+    else if (lineNum === 6) {
+        return [
+            (<HTMLInputElement>letter_holders[25]).value,
+            (<HTMLInputElement>letter_holders[26]).value,
+            (<HTMLInputElement>letter_holders[27]).value,
+            (<HTMLInputElement>letter_holders[28]).value,
+            (<HTMLInputElement>letter_holders[29]).value
+        ];
+    }
+
+    else {
+        console.error("function GetWordFromLine() is causing an error");
+        return ["e", "r", "r", "o", "r"];
+    }
+}
 
 function CompareWords (playerInput: string[]) : boolean {
     let letter_1 = playerInput[0] === wordAsArray[0];

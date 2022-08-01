@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-        "target": "ES3",
-        "watch": true
+        "target": "ESNext",
+        "watch": true,
+        "strict": true
     }
 }

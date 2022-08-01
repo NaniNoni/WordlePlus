@@ -1,144 +1,147 @@
-var word = "ptaki";
-var wordAsArray = word.split("");
-var letter_holders = document.getElementsByClassName("letter-holder");
-var keyboard_buttons = document.getElementsByClassName("keyboard-button");
-var current = {
+"use strict";
+let word = "ptaki";
+let wordAsArray = word.split("");
+const letter_holders = document.getElementsByClassName("letter-holder");
+const keyboard_buttons = document.getElementsByClassName("keyboard-button");
+const current = {
     boxIndex: 0,
-    box: function () { return letter_holders[current.boxIndex]; }
+    box: () => letter_holders[current.boxIndex]
 };
-var submitted = false;
+let submitted = false;
 AddKeyboardListeners();
 AddSpecialListeners();
 function AddKeyboardListeners() {
-    var q_btn = keyboard_buttons[0];
-    var w_btn = keyboard_buttons[1];
-    var e_btn = keyboard_buttons[2];
-    var r_btn = keyboard_buttons[3];
-    var t_btn = keyboard_buttons[4];
-    var y_btn = keyboard_buttons[5];
-    var u_btn = keyboard_buttons[6];
-    var i_btn = keyboard_buttons[7];
-    var o_btn = keyboard_buttons[8];
-    var p_btn = keyboard_buttons[9];
-    var a_btn = keyboard_buttons[10];
-    var s_btn = keyboard_buttons[11];
-    var d_btn = keyboard_buttons[12];
-    var f_btn = keyboard_buttons[13];
-    var g_btn = keyboard_buttons[14];
-    var h_btn = keyboard_buttons[15];
-    var j_btn = keyboard_buttons[16];
-    var k_btn = keyboard_buttons[17];
-    var l_btn = keyboard_buttons[18];
-    var z_btn = keyboard_buttons[20];
-    var x_btn = keyboard_buttons[21];
-    var c_btn = keyboard_buttons[22];
-    var v_btn = keyboard_buttons[23];
-    var b_btn = keyboard_buttons[24];
-    var n_btn = keyboard_buttons[25];
-    var m_btn = keyboard_buttons[26];
-    q_btn.onclick = function () {
+    const q_btn = keyboard_buttons[0];
+    const w_btn = keyboard_buttons[1];
+    const e_btn = keyboard_buttons[2];
+    const r_btn = keyboard_buttons[3];
+    const t_btn = keyboard_buttons[4];
+    const y_btn = keyboard_buttons[5];
+    const u_btn = keyboard_buttons[6];
+    const i_btn = keyboard_buttons[7];
+    const o_btn = keyboard_buttons[8];
+    const p_btn = keyboard_buttons[9];
+    const a_btn = keyboard_buttons[10];
+    const s_btn = keyboard_buttons[11];
+    const d_btn = keyboard_buttons[12];
+    const f_btn = keyboard_buttons[13];
+    const g_btn = keyboard_buttons[14];
+    const h_btn = keyboard_buttons[15];
+    const j_btn = keyboard_buttons[16];
+    const k_btn = keyboard_buttons[17];
+    const l_btn = keyboard_buttons[18];
+    const z_btn = keyboard_buttons[20];
+    const x_btn = keyboard_buttons[21];
+    const c_btn = keyboard_buttons[22];
+    const v_btn = keyboard_buttons[23];
+    const b_btn = keyboard_buttons[24];
+    const n_btn = keyboard_buttons[25];
+    const m_btn = keyboard_buttons[26];
+    q_btn.onclick = () => {
         AddLetter("q");
     };
-    w_btn.onclick = function () {
+    w_btn.onclick = () => {
         AddLetter("w");
     };
-    e_btn.onclick = function () {
+    e_btn.onclick = () => {
         AddLetter("e");
     };
-    r_btn.onclick = function () {
+    r_btn.onclick = () => {
         AddLetter("r");
     };
-    t_btn.onclick = function () {
+    t_btn.onclick = () => {
         AddLetter("t");
     };
-    y_btn.onclick = function () {
+    y_btn.onclick = () => {
         AddLetter("y");
     };
-    u_btn.onclick = function () {
+    u_btn.onclick = () => {
         AddLetter("u");
     };
-    i_btn.onclick = function () {
+    i_btn.onclick = () => {
         AddLetter("i");
     };
-    o_btn.onclick = function () {
+    o_btn.onclick = () => {
         AddLetter("o");
     };
-    p_btn.onclick = function () {
+    p_btn.onclick = () => {
         AddLetter("p");
     };
-    a_btn.onclick = function () {
+    a_btn.onclick = () => {
         AddLetter("a");
     };
-    s_btn.onclick = function () {
+    s_btn.onclick = () => {
         AddLetter("s");
     };
-    d_btn.onclick = function () {
+    d_btn.onclick = () => {
         AddLetter("d");
     };
-    f_btn.onclick = function () {
+    f_btn.onclick = () => {
         AddLetter("f");
     };
-    g_btn.onclick = function () {
+    g_btn.onclick = () => {
         AddLetter("g");
     };
-    h_btn.onclick = function () {
+    h_btn.onclick = () => {
         AddLetter("h");
     };
-    j_btn.onclick = function () {
+    j_btn.onclick = () => {
         AddLetter("j");
     };
-    k_btn.onclick = function () {
+    k_btn.onclick = () => {
         AddLetter("k");
     };
-    l_btn.onclick = function () {
+    l_btn.onclick = () => {
         AddLetter("l");
     };
-    z_btn.onclick = function () {
+    z_btn.onclick = () => {
         AddLetter("z");
     };
-    x_btn.onclick = function () {
+    x_btn.onclick = () => {
         AddLetter("x");
     };
-    c_btn.onclick = function () {
+    c_btn.onclick = () => {
         AddLetter("c");
     };
-    v_btn.onclick = function () {
+    v_btn.onclick = () => {
         AddLetter("v");
     };
-    b_btn.onclick = function () {
+    b_btn.onclick = () => {
         AddLetter("b");
     };
-    n_btn.onclick = function () {
+    n_btn.onclick = () => {
         AddLetter("n");
     };
-    m_btn.onclick = function () {
+    m_btn.onclick = () => {
         AddLetter("m");
     };
 }
 function AddSpecialListeners() {
-    var enter_btn = keyboard_buttons[19];
-    var del_btn = keyboard_buttons[27];
-    enter_btn.onclick = function () {
+    const enter_btn = keyboard_buttons[19];
+    const del_btn = keyboard_buttons[27];
+    enter_btn.onclick = () => {
         if (CanSubmit()) {
             Submit();
         }
     };
-    del_btn.onclick = function () {
+    del_btn.onclick = () => {
         alert("DELETE");
     };
 }
 function Submit() {
     if (submitted)
         return;
-    current.boxIndex++;
-    console.log("NEXTLINE");
-    console.log(current.boxIndex);
+    //current.boxIndex++;
+    if (CompareWords(GetWordFromLine(GetLine()))) {
+        Win();
+    }
 }
 function AddLetter(letter) {
     if (current.boxIndex <= 4) {
         if ((letter_holders[4].value) !== "")
             return;
         current.box().value = letter;
+        console.log(GetLine());
         if (current.boxIndex !== 4)
             current.boxIndex++;
     }
@@ -146,6 +149,7 @@ function AddLetter(letter) {
         if ((letter_holders[9].value) !== "")
             return;
         current.box().value = letter;
+        console.log(GetLine());
         if (current.boxIndex !== 9)
             current.boxIndex++;
     }
@@ -153,6 +157,7 @@ function AddLetter(letter) {
         if ((letter_holders[14].value) !== "")
             return;
         current.box().value = letter;
+        console.log(GetLine());
         if (current.boxIndex !== 14)
             current.boxIndex++;
     }
@@ -160,6 +165,7 @@ function AddLetter(letter) {
         if ((letter_holders[19].value) !== "")
             return;
         current.box().value = letter;
+        console.log(GetLine());
         if (current.boxIndex !== 19)
             current.boxIndex++;
     }
@@ -167,6 +173,7 @@ function AddLetter(letter) {
         if ((letter_holders[24].value) !== "")
             return;
         current.box().value = letter;
+        console.log(GetLine());
         if (current.boxIndex !== 24)
             current.boxIndex++;
     }
@@ -174,32 +181,111 @@ function AddLetter(letter) {
         if ((letter_holders[29].value) !== "")
             return;
         current.box().value = letter;
+        console.log(GetLine());
         if (current.boxIndex !== 29)
             current.boxIndex++;
     }
     else {
-        console.log("boxIndex: ".concat(current.boxIndex));
+        console.log(`boxIndex: ${current.boxIndex}`);
         return;
     }
-    console.log("boxIndex: ".concat(current.boxIndex));
-    current.box = function () { return letter_holders[current.boxIndex]; };
+    console.log(`boxIndex: ${current.boxIndex}`);
+    current.box = () => letter_holders[current.boxIndex];
 }
 function CanSubmit() {
     if (current.boxIndex < 4) {
         current.boxIndex++;
     }
     else {
-        return;
+        return true;
     }
-    console.log("boxIndex: ".concat(current.boxIndex));
-    current.box = function () { return letter_holders[current.boxIndex]; };
+    console.log(`boxIndex: ${current.boxIndex}`);
+    current.box = () => letter_holders[current.boxIndex];
+}
+function GetLine() {
+    if (current.boxIndex <= 4)
+        return 1;
+    else if (current.boxIndex > 4 && current.boxIndex <= 9)
+        return 2;
+    else if (current.boxIndex > 9 && current.boxIndex <= 14)
+        return 3;
+    else if (current.boxIndex > 14 && current.boxIndex <= 19)
+        return 4;
+    else if (current.boxIndex > 19 && current.boxIndex <= 24)
+        return 5;
+    else if (current.boxIndex > 24 && current.boxIndex <= 29)
+        return 6;
+    else {
+        console.error("function GetLine() doesn't work!");
+        return 0;
+    }
+}
+function GetWordFromLine(lineNum) {
+    if (lineNum === 1) {
+        return [
+            letter_holders[0].value,
+            letter_holders[1].value,
+            letter_holders[2].value,
+            letter_holders[3].value,
+            letter_holders[4].value
+        ];
+    }
+    else if (lineNum === 2) {
+        return [
+            letter_holders[5].value,
+            letter_holders[6].value,
+            letter_holders[7].value,
+            letter_holders[8].value,
+            letter_holders[9].value
+        ];
+    }
+    else if (lineNum === 3) {
+        return [
+            letter_holders[10].value,
+            letter_holders[11].value,
+            letter_holders[12].value,
+            letter_holders[13].value,
+            letter_holders[14].value
+        ];
+    }
+    else if (lineNum === 4) {
+        return [
+            letter_holders[15].value,
+            letter_holders[16].value,
+            letter_holders[17].value,
+            letter_holders[18].value,
+            letter_holders[19].value
+        ];
+    }
+    else if (lineNum === 5) {
+        return [
+            letter_holders[20].value,
+            letter_holders[21].value,
+            letter_holders[22].value,
+            letter_holders[23].value,
+            letter_holders[24].value
+        ];
+    }
+    else if (lineNum === 6) {
+        return [
+            letter_holders[25].value,
+            letter_holders[26].value,
+            letter_holders[27].value,
+            letter_holders[28].value,
+            letter_holders[29].value
+        ];
+    }
+    else {
+        console.error("function GetWordFromLine() is causing an error");
+        return ["e", "r", "r", "o", "r"];
+    }
 }
 function CompareWords(playerInput) {
-    var letter_1 = playerInput[0] === wordAsArray[0];
-    var letter_2 = playerInput[1] === wordAsArray[1];
-    var letter_3 = playerInput[2] === wordAsArray[2];
-    var letter_4 = playerInput[3] === wordAsArray[3];
-    var letter_5 = playerInput[4] === wordAsArray[4];
+    let letter_1 = playerInput[0] === wordAsArray[0];
+    let letter_2 = playerInput[1] === wordAsArray[1];
+    let letter_3 = playerInput[2] === wordAsArray[2];
+    let letter_4 = playerInput[3] === wordAsArray[3];
+    let letter_5 = playerInput[4] === wordAsArray[4];
     return letter_1 && letter_2 && letter_3 && letter_4 && letter_5;
 }
 function Win() {

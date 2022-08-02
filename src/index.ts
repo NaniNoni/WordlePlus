@@ -9,6 +9,16 @@ const current = {
     box: () => <HTMLInputElement>letter_holders[current.boxIndex]
 };
 
+interface Letter {
+    character: string,
+    color: () => Color
+}
+enum Color {
+    Green,
+    Yellow,
+    Grey
+}
+
 let submitted = false;
 
 AddKeyboardListeners();
@@ -141,10 +151,6 @@ function Submit () {
     if (submitted) return;
     
     //current.boxIndex++;
-
-    if (CompareWords(GetWordFromLine(GetLine()))) {
-        Win();
-    }
 }
 
 function AddLetter(letter: string) {
@@ -315,14 +321,107 @@ function GetWordFromLine (lineNum: number) {
     }
 }
 
-function CompareWords (playerInput: string[]) : boolean {
-    let letter_1 = playerInput[0] === wordAsArray[0];
-    let letter_2 = playerInput[1] === wordAsArray[1];
-    let letter_3 = playerInput[2] === wordAsArray[2];
-    let letter_4 = playerInput[3] === wordAsArray[3];
-    let letter_5 = playerInput[4] === wordAsArray[4];
+function CompareWords (playerInput: string[]) : object[] {
 
-    return letter_1 && letter_2 && letter_3 && letter_4 && letter_5;
+    const letter_1: Letter = {
+        character: playerInput[0],
+
+        color: () => {
+            if (letter_1.character === playerInput[0])
+                return Color.Green;
+            
+            else {
+                for (let i = 1; i < playerInput.length; i ++) {
+                    if (letter_1.character === playerInput[i])
+                        return Color.Yellow;
+                }
+            }
+            
+            return Color.Grey;
+        }
+    };
+
+    const letter_2: Letter = {
+        character: playerInput[1],
+
+        color: () => {
+            if (letter_2.character === playerInput[1])
+                return Color.Green;
+            
+            else {
+                for (let i = 1; i < playerInput.length; i++) {
+                    if (letter_2.character === playerInput[i])
+                        return Color.Yellow;
+                }
+            }
+
+            return Color.Grey;
+        }
+    }
+
+    const letter_3: Letter = {
+        character: playerInput[2],
+
+        color: () => {
+            if (letter_3.character === playerInput[2])
+                return Color.Green;
+            
+            else {
+                for (let i = 1; i < playerInput.length; i++) {
+                    if (letter_3.character === playerInput[i])
+                        return Color.Yellow;
+                }
+            }
+
+            return Color.Grey;
+        }
+    }
+
+    const letter_4: Letter = {
+        character: playerInput[3],
+
+        color: () => {
+            if (letter_4.character === playerInput[3])
+                return Color.Green;
+            
+            else {
+                for (let i = 1; i < playerInput.length; i++) {
+                    if (letter_4.character === playerInput[i])
+                        return Color.Yellow;
+                }
+            }
+
+            return Color.Grey;
+        }
+    }
+
+    const letter_5: Letter = {
+        character: playerInput[4],
+
+        color: () => {
+            if (letter_5.character === playerInput[4])
+                return Color.Green;
+            
+            else {
+                for (let i = 1; i < playerInput.length; i++) {
+                    if (letter_5.character === playerInput[i])
+                        return Color.Yellow;
+                }
+            }
+
+            return Color.Grey;
+        }
+    }
+    
+
+    return [
+        letter_1,
+        letter_2,
+        letter_3,
+        letter_4,
+        letter_5
+    ];
+
 }
 
 function Win () {

@@ -7,7 +7,16 @@ const keyboard_buttons = document.getElementsByClassName("keyboard-button");
 const current = {
     boxIndex: 0,
     box: () => <HTMLInputElement>letter_holders[current.boxIndex]
-};
+}
+
+const lines = {
+    one: document.getElementsByClassName("line-1"),
+    two: document.getElementsByClassName("line-2"),
+    three: document.getElementsByClassName("line-3"),
+    four: document.getElementsByClassName("line-4"),
+    five: document.getElementsByClassName("line-5"),
+    six: document.getElementsByClassName("line-6")
+}
 
 interface Letter {
     character: string,
@@ -19,7 +28,6 @@ enum Color {
     Grey
 }
 
-let submitted = false;
 
 AddKeyboardListeners();
 AddSpecialListeners();
@@ -138,19 +146,49 @@ function AddSpecialListeners () {
     const del_btn = <HTMLInputElement>keyboard_buttons[27];
 
     enter_btn.onclick = () => {
-        if (CanSubmit()) {
+        if (CanSubmit())
             Submit();
-        }
     }
     del_btn.onclick = () => {
         alert("DELETE");
     }
 }
 
-function Submit () {
-    if (submitted) return;
-    
-    //current.boxIndex++;
+function ReturnLineFromNumber (lineNum: number) {
+    switch (lineNum) {
+        case 1:
+            return lines.one;
+        case 2:
+            return lines.two;
+        case 3:
+            return lines.three;
+        case 4:
+            return lines.four;
+        case 5:
+            return lines.five;
+        case 6:
+            return lines.six;
+        default:
+            console.error("function ReturnLineFromNumber() caused an error and therefore returned lines.one");
+            return lines.one;
+    }
+}
+
+function Submit () {   
+
+    let input = CompareWords(GetWordFromLine(GetLine()));
+    for (let i = 0; i < input.length; i++) {
+        if (input[i].color() === Color.Green)
+            ReturnLineFromNumber(GetLine())[i].setAttribute("style", "background-color: green");
+        
+        else if (input[i].color() === Color.Yellow)
+            ReturnLineFromNumber(GetLine())[i].setAttribute("style", "background-color: yellow");
+    }
+
+    if (input[0].color() === Color.Green && input[1].color() === Color.Green && input[2].color() === Color.Green && input[3].color() === Color.Green && input[4].color() === Color.Green)
+        Win();
+
+    current.boxIndex++;
 }
 
 function AddLetter(letter: string) {
@@ -159,7 +197,6 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        console.log(GetLine());
 
         if (current.boxIndex !== 4)
             current.boxIndex++;
@@ -169,7 +206,6 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        console.log(GetLine());
 
         if (current.boxIndex !== 9)
             current.boxIndex++;
@@ -179,7 +215,6 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        console.log(GetLine());
 
         if (current.boxIndex !== 14)
             current.boxIndex++;
@@ -189,7 +224,6 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        console.log(GetLine());
 
         if (current.boxIndex !== 19)
             current.boxIndex++;
@@ -199,7 +233,6 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        console.log(GetLine());
 
         if (current.boxIndex !== 24)
             current.boxIndex++;
@@ -209,13 +242,11 @@ function AddLetter(letter: string) {
             return;
 
         current.box().value = letter;
-        console.log(GetLine());
 
         if (current.boxIndex !== 29)
             current.boxIndex++;
     }
     else {
-        console.log(`boxIndex: ${current.boxIndex}`);
         return;
     }
 
@@ -223,15 +254,12 @@ function AddLetter(letter: string) {
     current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
 }
 
-function CanSubmit() {
-    if (current.boxIndex < 4) {
-        current.boxIndex++;
-    } else {
+function CanSubmit() : boolean {
+    if (current.boxIndex === 4 || current.boxIndex === 9 || current.boxIndex === 14 || current.boxIndex === 19 || current.boxIndex === 24 || current.boxIndex === 29) {
         return true;
     }
 
-    console.log(`boxIndex: ${current.boxIndex}`);
-    current.box = () => <HTMLInputElement>letter_holders[current.boxIndex];
+    return false;
 }
 
 function GetLine() : number {
@@ -259,80 +287,82 @@ function GetLine() : number {
     }
 }
 
-function GetWordFromLine (lineNum: number) {
+function GetWordFromLine (lineNum: number) : string[] {
+   
     if (lineNum === 1) {
-        return [
-            (<HTMLInputElement>letter_holders[0]).value,
-            (<HTMLInputElement>letter_holders[1]).value,
-            (<HTMLInputElement>letter_holders[2]).value,
-            (<HTMLInputElement>letter_holders[3]).value,
-            (<HTMLInputElement>letter_holders[4]).value
-        ];
+        let values: string[] = [];
+
+        for (let i = 0; i <= 4; i++) {
+            values.push((<HTMLInputElement>letter_holders[i]).value);
+        }
+
+        return values;
     }
     else if (lineNum === 2) {
-        return [
-            (<HTMLInputElement>letter_holders[5]).value,
-            (<HTMLInputElement>letter_holders[6]).value,
-            (<HTMLInputElement>letter_holders[7]).value,
-            (<HTMLInputElement>letter_holders[8]).value,
-            (<HTMLInputElement>letter_holders[9]).value
-        ];
+        let values: string[] = [];
+
+        for (let i = 5; i <= 9; i++) {
+            values.push((<HTMLInputElement>letter_holders[i]).value);
+        }
+
+        return values;
     }
     else if (lineNum === 3) {
-        return [
-            (<HTMLInputElement>letter_holders[10]).value,
-            (<HTMLInputElement>letter_holders[11]).value,
-            (<HTMLInputElement>letter_holders[12]).value,
-            (<HTMLInputElement>letter_holders[13]).value,
-            (<HTMLInputElement>letter_holders[14]).value
-        ];
+        let values: string[] = [];
+
+        for (let i = 10; i <= 14; i++) {
+            values.push((<HTMLInputElement>letter_holders[i]).value);
+        }
+
+        return values;
     }
     else if (lineNum === 4) {
-        return [
-            (<HTMLInputElement>letter_holders[15]).value,
-            (<HTMLInputElement>letter_holders[16]).value,
-            (<HTMLInputElement>letter_holders[17]).value,
-            (<HTMLInputElement>letter_holders[18]).value,
-            (<HTMLInputElement>letter_holders[19]).value
-        ];
+        let values: string[] = [];
+
+        for (let i = 15; i <= 19; i++) {
+            values.push((<HTMLInputElement>letter_holders[i]).value);
+        }
+
+        return values;
     }
     else if (lineNum === 5) {
-        return [
-            (<HTMLInputElement>letter_holders[20]).value,
-            (<HTMLInputElement>letter_holders[21]).value,
-            (<HTMLInputElement>letter_holders[22]).value,
-            (<HTMLInputElement>letter_holders[23]).value,
-            (<HTMLInputElement>letter_holders[24]).value
-        ];
+        let values: string[] = [];
+
+        for (let i = 20; i <= 24; i++) {
+            values.push((<HTMLInputElement>letter_holders[i]).value);
+        }
+
+        return values;
     }
     else if (lineNum === 6) {
-        return [
-            (<HTMLInputElement>letter_holders[25]).value,
-            (<HTMLInputElement>letter_holders[26]).value,
-            (<HTMLInputElement>letter_holders[27]).value,
-            (<HTMLInputElement>letter_holders[28]).value,
-            (<HTMLInputElement>letter_holders[29]).value
-        ];
-    }
+        let values: string[] = [];
 
+        for (let i = 25; i <= 29; i++) {
+            values.push((<HTMLInputElement>letter_holders[i]).value);
+        }
+
+        return values;
+    }
     else {
         console.error("function GetWordFromLine() is causing an error");
         return ["e", "r", "r", "o", "r"];
     }
 }
 
-function CompareWords (playerInput: string[]) : object[] {
+
+function CompareWords (playerInput: string[]) : Letter[] {
 
     const letter_1: Letter = {
+        
         character: playerInput[0],
 
         color: () => {
-            if (letter_1.character === playerInput[0])
+            if (letter_1.character === wordAsArray[0])
                 return Color.Green;
             
             else {
-                for (let i = 1; i < playerInput.length; i ++) {
-                    if (letter_1.character === playerInput[i])
+                for (let i = 1; i < wordAsArray.length; i++) {
+                    if (letter_1.character === wordAsArray[i])
                         return Color.Yellow;
                 }
             }
@@ -345,12 +375,12 @@ function CompareWords (playerInput: string[]) : object[] {
         character: playerInput[1],
 
         color: () => {
-            if (letter_2.character === playerInput[1])
+            if (letter_2.character === wordAsArray[1])
                 return Color.Green;
             
             else {
-                for (let i = 1; i < playerInput.length; i++) {
-                    if (letter_2.character === playerInput[i])
+                for (let i = 1; i < wordAsArray.length; i++) {
+                    if (letter_2.character === wordAsArray[i])
                         return Color.Yellow;
                 }
             }
@@ -363,12 +393,12 @@ function CompareWords (playerInput: string[]) : object[] {
         character: playerInput[2],
 
         color: () => {
-            if (letter_3.character === playerInput[2])
+            if (letter_3.character === wordAsArray[2])
                 return Color.Green;
             
             else {
-                for (let i = 1; i < playerInput.length; i++) {
-                    if (letter_3.character === playerInput[i])
+                for (let i = 1; i < wordAsArray.length; i++) {
+                    if (letter_3.character === wordAsArray[i])
                         return Color.Yellow;
                 }
             }
@@ -381,12 +411,12 @@ function CompareWords (playerInput: string[]) : object[] {
         character: playerInput[3],
 
         color: () => {
-            if (letter_4.character === playerInput[3])
+            if (letter_4.character === wordAsArray[3])
                 return Color.Green;
             
             else {
-                for (let i = 1; i < playerInput.length; i++) {
-                    if (letter_4.character === playerInput[i])
+                for (let i = 1; i < wordAsArray.length; i++) {
+                    if (letter_4.character === wordAsArray[i])
                         return Color.Yellow;
                 }
             }
@@ -399,12 +429,12 @@ function CompareWords (playerInput: string[]) : object[] {
         character: playerInput[4],
 
         color: () => {
-            if (letter_5.character === playerInput[4])
+            if (letter_5.character === wordAsArray[4])
                 return Color.Green;
             
             else {
-                for (let i = 1; i < playerInput.length; i++) {
-                    if (letter_5.character === playerInput[i])
+                for (let i = 1; i < wordAsArray.length; i++) {
+                    if (letter_5.character === wordAsArray[i])
                         return Color.Yellow;
                 }
             }
@@ -423,6 +453,7 @@ function CompareWords (playerInput: string[]) : object[] {
     ];
 
 }
+
 
 function Win () {
     alert("YOU WON");

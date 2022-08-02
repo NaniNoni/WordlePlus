@@ -5,6 +5,8 @@ body {
     margin: 40px;
 }
 
+
+
 .square {
     display: flex;
     justify-content: center;
@@ -28,6 +30,13 @@ body {
         font-size: 330%;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bolder;
+        
+        .green-bg {
+            background-color: green;
+        }
+        .yellow-bg {
+            background-color: yellow;
+        }
     }
 }
 
